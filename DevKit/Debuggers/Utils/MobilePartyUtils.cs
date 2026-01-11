@@ -21,7 +21,7 @@ public static class MobilePartyUtils
     public static void ToggleMainPartyAttackable()
     {
         var result = CampaignCheats.SetMainPartyAttackable(
-            CampaignCheats.MainPartyIsAttackable ? ["0"] : ["1"]
+            MobileParty.MainParty.ShouldBeIgnored ? ["0"] : ["1"]
         );
 
         if (!string.IsNullOrEmpty(result))
@@ -30,22 +30,22 @@ public static class MobilePartyUtils
 
     public static void TeleportTo(this MobileParty party, MobileParty destination)
     {
-        var intersectionPoint = destination.Position2D;
+        var intersectionPoint = destination.Position;
         if (party.Army != null)
         {
             var attachedParties = party.Army.LeaderParty.AttachedParties;
             foreach (var mobileParty in attachedParties)
             {
-                mobileParty.Position2D += intersectionPoint - party.Position2D;
+                mobileParty.Position += intersectionPoint - party.Position;
             }
         }
-        party.Position2D = intersectionPoint;
-        party.Ai.SetMoveModeHold();
+        party.Position = intersectionPoint;
+        party.SetMoveModeHold();
 
         foreach (var mobileParty in MobileParty.All)
-            mobileParty.Party.UpdateVisibilityAndInspected();
+            mobileParty.Party.UpdateVisibilityAndInspected(MobileParty.MainParty.Position);
         foreach (var settlement in Settlement.All)
-            settlement.Party.UpdateVisibilityAndInspected();
+            settlement.Party.UpdateVisibilityAndInspected(MobileParty.MainParty.Position);
 
         MapScreen.Instance.TeleportCameraToMainParty();
     }

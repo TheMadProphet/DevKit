@@ -147,7 +147,7 @@ public class MobilePartyDebugger : DebuggerWindow
         Imgui.Text(
             $"Food: {party.Food} | Consumption: {party.FoodChange} | Days: {party.GetNumDaysForFoodToLast()}"
         );
-        Imgui.Text($"Position: {party.Position2D.X}, {party.Position2D.Y}");
+        Imgui.Text($"Position: {party.Position.X}, {party.Position.Y}");
         FieldInfo(
             "Current Settlement",
             party.CurrentSettlement?.Name?.ToString(),
@@ -208,8 +208,8 @@ public class MobilePartyDebugger : DebuggerWindow
 
                 Imgui.Text("General");
                 Imgui.Separator();
-                Imgui.Text($"DefaultBehavior: {partyAi.DefaultBehavior}");
-                Imgui.Text($"PartyMoveMode: {partyAi.PartyMoveMode}");
+                Imgui.Text($"DefaultBehavior: {party.DefaultBehavior}");
+                Imgui.Text($"PartyMoveMode: {party.PartyMoveMode}");
                 Imgui.Text($"DoNotMakeNewDecisions: {partyAi.DoNotMakeNewDecisions}");
 
                 Imgui.NewLine();
@@ -234,7 +234,7 @@ public class MobilePartyDebugger : DebuggerWindow
         Button("Heal (Cheat)", MobilePartyUtils.HealMainParty);
         Imgui.SameLine(0, 10);
         Button(
-            (CampaignCheats.MainPartyIsAttackable ? "Is attackable" : "Is not attackable")
+            (!MobileParty.MainParty.ShouldBeIgnored ? "Is attackable" : "Is not attackable")
                 + " (Cheat)",
             MobilePartyUtils.ToggleMainPartyAttackable
         );

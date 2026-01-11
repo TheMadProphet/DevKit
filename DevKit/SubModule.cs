@@ -29,11 +29,21 @@ public class SubModule : MBSubModuleBase
         DevKitHotKeyManager.Initialize();
         var devkitCategory = HotKeyManager.GetCategory(nameof(DevKitGameKeyContext));
 
-        _openControlPanelKey = devkitCategory.GetGameKey("OpenControlPanel");
-        _openMobilePartyDebuggerKey = devkitCategory.GetGameKey("OpenMobilePartyDebugger");
-        _openCampaignEventsDebuggerKey = devkitCategory.GetGameKey("OpenCampaignEventsDebugger");
-        _openMissionDebuggerKey = devkitCategory.GetGameKey("OpenMissionDebugger");
-        _openAgentSelectorKey = devkitCategory.GetGameKey("OpenAgentSelector");
+        _openControlPanelKey = devkitCategory.GetGameKey(
+            (int)DevKitGameKeyContext.KeyMap.OpenControlPanel
+        );
+        _openMobilePartyDebuggerKey = devkitCategory.GetGameKey(
+            (int)DevKitGameKeyContext.KeyMap.OpenMobilePartyDebugger
+        );
+        _openCampaignEventsDebuggerKey = devkitCategory.GetGameKey(
+            (int)DevKitGameKeyContext.KeyMap.OpenCampaignEventsDebugger
+        );
+        _openMissionDebuggerKey = devkitCategory.GetGameKey(
+            (int)DevKitGameKeyContext.KeyMap.OpenMissionDebugger
+        );
+        _openAgentSelectorKey = devkitCategory.GetGameKey(
+            (int)DevKitGameKeyContext.KeyMap.OpenAgentSelector
+        );
     }
 
     protected override void OnApplicationTick(float dt)
