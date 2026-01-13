@@ -28,7 +28,7 @@ public static class WindowManager
     private static readonly List<DebuggerWindow> WindowsToRemove = [];
 
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(ScreenManager), "UpdateLateTickLayers")]
+    [HarmonyPatch(typeof(ScreenManager), "LateTick")]
     public static void Tick()
     {
         foreach (var window in Windows)

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DevKit.Debuggers.Utils;
 using HarmonyLib;
 using SandBox.View.Map;
+using SandBox.View.Map.Visuals;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.Party;
@@ -354,8 +355,7 @@ public class MobilePartyDebugger : DebuggerWindow
     }
 }
 
-[HarmonyPatch(typeof(MobileParty))]
-[HarmonyPatch("TaleWorlds.CampaignSystem.Map.IMapEntity.OnHover")]
+[HarmonyPatch(typeof(MobilePartyVisual), nameof(MobilePartyVisual.OnHover))]
 public class MobilePartyHoverPatch
 {
     public static void Postfix(MobileParty __instance)
